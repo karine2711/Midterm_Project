@@ -36,8 +36,13 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            var numberOfNodes = binding.editTextNumber.text.toString().toInt();
-            towerOfHanoi(numberOfNodes);
+            if (binding.editTextNumber.text.isBlank()) {
+                Log.e("Tower of Hanoi", "No input")
+            } else {
+                var numberOfNodes = binding.editTextNumber.text.toString().toInt();
+
+                towerOfHanoi(numberOfNodes);
+            }
         }
     }
 
@@ -48,7 +53,6 @@ class FirstFragment : Fragment() {
         var rod2 = Rod("Rod 2")
         var rod3 = Rod("Rod 3")
         initSource(rod1, n)
-        var rods: List<Rod> = mutableListOf(rod1, rod2, rod3);
         fun moveNodes(n: Int, source: Rod, target: Rod, extra: Rod) {
             if (n == 0) {
                 Log.w("Tower of Hanoi", "No nodes where present")
@@ -71,8 +75,11 @@ class FirstFragment : Fragment() {
     }
 
     fun moveLast(source: Rod, target: Rod) {
-        var element=source.pop();
-        Log.i("Tower of Hanoi", "Moving element of size ${element} from ${source.name} to ${target.name}")
+        var element = source.pop();
+        Log.i(
+            "Tower of Hanoi",
+            "Moving element of size ${element} from ${source.name} to ${target.name}"
+        )
         target.push(element);
     }
 
@@ -81,8 +88,6 @@ class FirstFragment : Fragment() {
         var stack = ArrayDeque<Int>()
 
         fun push(node: Int) {
-//            Log.i(name, "Pushing ${node}to $name")
-
             if (stack.isEmpty() || node < stack.last()) {
                 stack.addLast(node)
             }
