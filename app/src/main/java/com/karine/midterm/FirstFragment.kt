@@ -46,6 +46,7 @@ class FirstFragment : Fragment() {
         var rod1 = Rod("Rod 1")
         var rod2 = Rod("Rod 2")
         var rod3 = Rod("Rod 3")
+        initSource(rod1, n)
         var rods: List<Rod> = mutableListOf(rod1, rod2, rod3);
         fun moveNodes(n: Int, source: Rod, target: Rod, extra: Rod) {
             if (n == 0) {
@@ -58,6 +59,13 @@ class FirstFragment : Fragment() {
             moveNodes(n - 1, source, extra, target)
             moveNodes(1, source, target, extra)
             moveNodes(n - 1, extra, target, source)
+        }
+        moveNodes(n, rod1, rod3, rod2)
+    }
+
+    private fun initSource(source: Rod, n: Int) {
+        for (i in n downTo 1) {
+            source.push(i)
         }
     }
 
@@ -72,13 +80,17 @@ class FirstFragment : Fragment() {
 
         fun push(node: Int) {
 //            Log.i(name, "Pushing ${node}to $name")
-            if (node < stack.last()) {
+
+            if (stack.isEmpty() || node < stack.last()) {
                 stack.addLast(node)
             }
         }
 
         fun pop(): Int {
-            return stack.removeLast();
+            if (!stack.isEmpty()) {
+                return stack.removeLast();
+            }
+            return 0;
         }
     }
 
