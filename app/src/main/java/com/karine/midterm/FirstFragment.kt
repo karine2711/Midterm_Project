@@ -43,6 +43,7 @@ class FirstFragment : Fragment() {
 
 
     fun towerOfHanoi(n: Int) {
+        Log.i("Tower of Hanoi", "Starting move for input ${n}")
         var rod1 = Rod("Rod 1")
         var rod2 = Rod("Rod 2")
         var rod3 = Rod("Rod 3")
@@ -70,8 +71,9 @@ class FirstFragment : Fragment() {
     }
 
     fun moveLast(source: Rod, target: Rod) {
-        Log.i("Tower of Hanoi", "Moving from ${source.name} to ${target.name}")
-        target.push(source.pop());
+        var element=source.pop();
+        Log.i("Tower of Hanoi", "Moving element of size ${element} from ${source.name} to ${target.name}")
+        target.push(element);
     }
 
     class Rod(pName: String) {
